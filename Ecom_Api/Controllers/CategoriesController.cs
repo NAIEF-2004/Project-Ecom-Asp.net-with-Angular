@@ -37,7 +37,7 @@ namespace Ecom_Api.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseAPI(400));  
+                return BadRequest(ex.Message);  
             }  
 
         }
@@ -47,12 +47,12 @@ namespace Ecom_Api.Controllers
             try
             {
                 var category = await work.CategoryRepostiry.GetByIdAsync(id);
-                if (category is null) return BadRequest();
+                if (category is null) return BadRequest(new ResponseAPI(400));
                 return Ok(category);
             }
             catch (Exception ex)
             {
-                return BadRequest(new ResponseAPI(400));
+                return BadRequest(ex.Message);
             }
 
         }
@@ -63,7 +63,7 @@ namespace Ecom_Api.Controllers
             {
                 var x = map.Map<Category>(categorydto);
                 await work.CategoryRepostiry.AddAsync(x);
-                return Ok(new { message = "ok add category" });
+                return Ok(new ResponseAPI(200,"item has been add"));
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace Ecom_Api.Controllers
             {
                 var category = map.Map<Category>(updatecategore);
                 await work.CategoryRepostiry.UpdateAsync(category);
-                return Ok(new { message = "item in category update" });
+                return Ok(new ResponseAPI(200,"item has been update "));
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace Ecom_Api.Controllers
             try
             {
                 await work.CategoryRepostiry.DeleteAsync(id);
-                return Ok(new { message = "item in category delete" });
+                return Ok(new ResponseAPI(200,"item has been deleted"));
             }
             catch (Exception ex)
             {

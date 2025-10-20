@@ -11,7 +11,7 @@ namespace Ecom_Core.Entites.Prudact
     {
         public string  ImageName{ get; set; }
         public int PrudactId { get; set; }
-        [ForeignKey(nameof(PrudactId))]
-        public virtual Prudact prudact { get; set; }
+        //[ForeignKey(nameof(PrudactId))]
+        //public virtual Prudact prudact { get; set; }
     }
 }

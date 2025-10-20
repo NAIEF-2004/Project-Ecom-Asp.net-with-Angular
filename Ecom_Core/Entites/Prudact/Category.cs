@@ -10,7 +10,7 @@ namespace Ecom_Core.Entites.Prudact
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<Prudact> prudacts { get; set; } = new HashSet<Prudact>();
+        //public ICollection<Prudact> prudacts { get; set; } = new HashSet<Prudact>();
 
     }
 }
