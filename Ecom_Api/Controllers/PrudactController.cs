@@ -4,6 +4,7 @@ using Ecom_Core.DTO;
 using Ecom_Core.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Principal;
 
 namespace Ecom_Api.Controllers
 {
@@ -37,6 +38,27 @@ namespace Ecom_Api.Controllers
 
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpGet("get-by-id/{id}")]
+        public async Task<ActionResult> getbyidprudact (int id)
+        {
+            try
+            {
+                var prudact = await work.PrudactRepostiry.GetByIdAsync(id, x => x.category, x => x.photos);
+                var result = mapper.Map<PrudactDTO>(prudact);
+                if (prudact is null)
+                {
+                    return BadRequest(new ResponseAPI(400));
+                }
+                return Ok(result);
+
+            }
+            catch (Exception ex )
+            {
+
+                return BadRequest(ex.Message);
+            }
+ 
         }
     }
 }
