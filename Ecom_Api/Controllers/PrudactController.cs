@@ -58,7 +58,18 @@ namespace Ecom_Api.Controllers
 
                 return BadRequest(ex.Message);
             }
- 
+        }
+        [HttpPost("add-Prudact")]
+        public async Task<ActionResult> Addprudact() 
+        {
+            try
+            {
+              
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

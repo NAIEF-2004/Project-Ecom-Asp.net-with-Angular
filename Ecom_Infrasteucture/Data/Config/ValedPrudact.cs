@@ -15,11 +15,10 @@ namespace Ecom_Infrasteucture.Data.Config
         {
             builder.Property(x => x.Name).IsRequired().HasMaxLength(20);
             builder.Property(x => x.Description).IsRequired().HasMaxLength(90);
-            builder.Property(z => z.Price).HasPrecision(18, 2);
+            builder.Property(z => z.NewPrice).HasPrecision(18, 2);
             //seedData
             builder.HasData(
-                new Prudact { Id = 1, Name = "test", Description = "test", CategoryId = 1, Price = 10 }
-                );
+                new Prudact { Id = 1, Name = "test", Description = "test", CategoryId = 1, NewPrice = 10 }  );
         }
     }
 }

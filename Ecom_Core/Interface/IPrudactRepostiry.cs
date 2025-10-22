@@ -1,4 +1,5 @@
-﻿using Ecom_Core.Entites.Prudact;
+﻿using Ecom_Core.DTO;
+using Ecom_Core.Entites.Prudact;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace Ecom_Core.Interface
 {
    public interface IPrudactRepostiry:IGenricRepository<Prudact>
     {
+        Task<bool> AddAsync(AddprudactDTO prudactDTO);
+       
     }
 }

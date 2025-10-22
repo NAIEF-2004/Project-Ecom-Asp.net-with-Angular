@@ -1,4 +1,6 @@
-﻿using Ecom_Core.Entites.Prudact;
+﻿using AutoMapper;
+using Ecom_Core.DTO;
+using Ecom_Core.Entites.Prudact;
 using Ecom_Core.Interface;
 using Ecom_Infrasteucture.Data;
 using System;
@@ -11,10 +13,22 @@ namespace Ecom_Infrasteucture.Reposetores
 {
     public  class PrudactRepostiry: GenricRepository<Prudact>, IPrudactRepostiry
     {
-        public PrudactRepostiry(AppDbContext db):base(db)
+        private readonly AppDbContext db;
+        private readonly IMapper mapper;
+
+        public PrudactRepostiry(AppDbContext db, IMapper mapper) :base(db)
         {
-            
+            this.db = db;
+            this.mapper = mapper;
         }
 
+        public async  Task<bool> AddAsync(AddprudactDTO prudactDTO)
+        {
+            if (prudactDTO == null)  return false;
+            var prudact=mapper.Map<Prudact>(prudactDTO);
+            await db.Prudacts.AddAsync(prudact);
+            await db.SaveChangesAsync();
+
+        }
     }
 }
