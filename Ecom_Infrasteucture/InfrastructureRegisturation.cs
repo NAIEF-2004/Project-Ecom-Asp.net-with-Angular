@@ -1,9 +1,12 @@
 ﻿using Ecom_Core.Interface;
+using Ecom_Core.Services;
 using Ecom_Infrasteucture.Data;
 using Ecom_Infrasteucture.Reposetores;
+using Ecom_Infrasteucture.Reposetores.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +35,9 @@ namespace Ecom_Infrasteucture
             //applay dbcontext
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("Ecom")));
+            //save
+            services.AddSingleton<IImageManagmentService,ImageManagemintService>();
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"wwwroot")));
 
             return services;
         }

@@ -11,14 +11,13 @@ namespace Ecom_Infrasteucture.Reposetores.Service
 {
     public class ImageManagemintService : IImageManagmentService
     {
-        private readonly IFormatProvider fp;
+        //save
 
-        public ImageManagemintService(IFormatProvider fp)
+        public ImageManagemintService()
         {
-            this.fp = fp;
         }
 
-        public async Task<List<string>> Addimage(IFormFileCollection file, string src)
+        public async Task<List<string>> Addimage(IFormFileCollection files, string src)
         {
             var SaveImageSrc = new List<string>();
             var ImageDirectory = Path.Combine("wwwroot", "Images", src);
@@ -28,19 +27,19 @@ namespace Ecom_Infrasteucture.Reposetores.Service
                 Directory.CreateDirectory(ImageDirectory);
             }
 
-            foreach (var item in file)
+            foreach (var item in files)
             {
                 if (item.Length > 0)
                 {
                     //get image name
                     var ImageName = item.FileName;
-                    var ImagePath = $"Images/{src}/{ImageName}";
+                    var ImageSrc = $"Images/{src}/{ImageName}";
                     var root = Path.Combine(ImageDirectory, ImageName);
                     using (FileStream stream = new FileStream(root, FileMode.Create))
                     {
                         await item.CopyToAsync(stream);
                     }
-                    SaveImageSrc.Add(ImagePath);
+                    SaveImageSrc.Add(ImageSrc);
                 }
             }
             return SaveImageSrc;
@@ -63,6 +62,5 @@ namespace Ecom_Infrasteucture.Reposetores.Service
                 Console.WriteLine($"خطأ أثناء حذف الملف: {ex.Message}");
             }
         }
-
     }
 }

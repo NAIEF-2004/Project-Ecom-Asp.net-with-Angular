@@ -58,7 +58,21 @@ namespace Ecom_Api.Controllers
 
                 return BadRequest(ex.Message);
             }
- 
+        }
+        [HttpPost("add-Prudact")]
+        [RequestSizeLimit(100_000_000)]// 100 MB لزيادة حجم الطلب المسموح به
+        public async Task<ActionResult> Addprudact(AddprudactDTO prudactDTO) 
+        {
+            try
+            {
+                await work.PrudactRepostiry.AddAsync(prudactDTO);
+              return Ok(new ResponseAPI(200, "Prudact added successfully"));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseAPI(400, ex.Message));
+            }
         }
     }
 }

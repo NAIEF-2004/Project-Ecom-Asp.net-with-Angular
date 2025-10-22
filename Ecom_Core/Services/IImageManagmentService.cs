@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Ecom_Core.Services
 {
+    //save
    public  interface IImageManagmentService
     {
         //استخدمت لست ممكن يعطي اكثر من صورة لاضيفها للمنتج
         Task<List<string>> Addimage(IFormFileCollection file,string src );
+      
         void Deleteimage(string src);
     }
 }

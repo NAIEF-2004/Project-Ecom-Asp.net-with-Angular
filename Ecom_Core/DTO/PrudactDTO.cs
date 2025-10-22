@@ -1,4 +1,5 @@
 ﻿using Ecom_Core.Entites.Prudact;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,5 +21,14 @@ namespace Ecom_Core.DTO
     {
         public string ImageName { get; set; }
         public int PrudactId { get; set; }
+    }
+    public record AddprudactDTO 
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal NewPrice { get; set; }
+        public decimal OldPrice { get; set; }
+        public int CategoryId { get; set; }
+        public IFormCollection Photo { get; set; }
     }
 }
