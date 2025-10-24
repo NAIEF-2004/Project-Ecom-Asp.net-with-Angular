@@ -16,6 +16,7 @@ namespace Ecom_Infrasteucture.Reposetores
     {
         private readonly AppDbContext db;
         private readonly IMapper mapper;
+<<<<<<< HEAD
         private readonly IImageManagmentService imageManagmentService;
 
         public PrudactRepostiry(AppDbContext db, IMapper mapper, IImageManagmentService imageManagmentService) :base(db)
@@ -23,6 +24,13 @@ namespace Ecom_Infrasteucture.Reposetores
             this.db = db;
             this.mapper = mapper;
             this.imageManagmentService = imageManagmentService;
+=======
+
+        public PrudactRepostiry(AppDbContext db, IMapper mapper) :base(db)
+        {
+            this.db = db;
+            this.mapper = mapper;
+>>>>>>> 9f8f48cc6befb6f138bd0e537dac70ce11759aca
         }
 
         public async  Task<bool> AddAsync(AddprudactDTO prudactDTO)
@@ -31,6 +39,7 @@ namespace Ecom_Infrasteucture.Reposetores
             var prudact=mapper.Map<Prudact>(prudactDTO);
             await db.Prudacts.AddAsync(prudact);
             await db.SaveChangesAsync();
+<<<<<<< HEAD
             var imagepath = await imageManagmentService.Addimage(prudactDTO.Photos, "PrudactImages");
             var photo = imagepath.Select(path => new Photo
             {
@@ -41,6 +50,9 @@ namespace Ecom_Infrasteucture.Reposetores
             await db.Photos.AddRangeAsync(photo);
             await db.SaveChangesAsync();
             return true;
+=======
+
+>>>>>>> 9f8f48cc6befb6f138bd0e537dac70ce11759aca
         }
     }
 }
