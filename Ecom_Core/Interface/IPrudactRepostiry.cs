@@ -11,6 +11,7 @@ namespace Ecom_Core.Interface
    public interface IPrudactRepostiry:IGenricRepository<Prudact>
     {
         Task<bool> AddAsync(AddprudactDTO prudactDTO);
-       
+        Task<bool>UpdateAsync(UpdateprudactDTO prudactDTO);
+
     }
 }

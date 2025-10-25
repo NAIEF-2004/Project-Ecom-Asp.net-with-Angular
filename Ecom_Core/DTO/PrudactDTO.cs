@@ -31,4 +31,8 @@ namespace Ecom_Core.DTO
         public int CategoryId { get; set; }
         public IFormFileCollection Photos{ get; set; }
     }
+    public record UpdateprudactDTO: AddprudactDTO
+    {
+        public int Id { get; set; }
+    }
 }

@@ -45,21 +45,26 @@ namespace Ecom_Infrasteucture.Reposetores.Service
             return SaveImageSrc;
         }
 
-        public void Deleteimage(string src)
+        public void Deleteimage(string relativeFolderPath)
         {
             try
             {
-                var rootPath = Path.Combine("wwwroot", src);
+                var rootPath = Path.Combine("wwwroot", relativeFolderPath);
                 var fullPath = Path.GetFullPath(rootPath);
 
-                if (File.Exists(fullPath))
+                if (Directory.Exists(fullPath))
                 {
-                    File.Delete(fullPath);
+                    Directory.Delete(fullPath, recursive: true); // يحذف المجلد وكل محتوياته
+                    Console.WriteLine("تم حذف المجلد بنجاح.");
+                }
+                else
+                {
+                    Console.WriteLine("المجلد غير موجود.");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"خطأ أثناء حذف الملف: {ex.Message}");
+                Console.WriteLine($"خطأ أثناء حذف المجلد: {ex.Message}");
             }
         }
     }

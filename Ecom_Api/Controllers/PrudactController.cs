@@ -3,6 +3,7 @@ using Ecom_Api.Helper;
 using Ecom_Core.DTO;
 using Ecom_Core.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Principal;
 
@@ -72,6 +73,20 @@ namespace Ecom_Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest(new ResponseAPI(400, ex.Message));
+            }
+        }
+        [HttpPut("update-prudact")]
+        public async Task<ActionResult> UpdatePrudact(UpdateprudactDTO updateprudactDTO) 
+        {
+            try
+            {
+               await work.PrudactRepostiry.UpdateAsync(updateprudactDTO);
+                return Ok( new ResponseAPI(200,"Prudact updated successfully"));
+            }
+            catch (Exception ex )
+            {
+
+                return BadRequest(new ResponseAPI(400,ex.Message));
             }
         }
     }

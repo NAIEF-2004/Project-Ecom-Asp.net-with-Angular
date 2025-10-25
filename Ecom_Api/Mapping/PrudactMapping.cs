@@ -12,6 +12,7 @@ namespace Ecom_Api.Mapping
             CreateMap<Prudact, PrudactDTO>().ForMember(x => x.Categoryname, op => op.MapFrom(s => s.category.Name)).ReverseMap();
             CreateMap<Photo,PhotoDTO>().ReverseMap();
             CreateMap<AddprudactDTO, Prudact>().ForMember(x => x.photos, op => op.Ignore()).ReverseMap();
+            CreateMap<updatecategoryDTO, Prudact>().ForMember(x => x.photos, op => op.Ignore()).ReverseMap();
         }
     }
 }
