@@ -11,10 +11,13 @@ namespace Ecom_Infrasteucture.Reposetores.Service
 {
     public class ImageManagemintService : IImageManagmentService
     {
+        private readonly IFileProvider fileprovider;
+
         //save
 
-        public ImageManagemintService()
+        public ImageManagemintService(IFileProvider fileprovider)
         {
+            this.fileprovider = fileprovider;
         }
 
         public async Task<List<string>> Addimage(IFormFileCollection files, string src)
@@ -47,25 +50,12 @@ namespace Ecom_Infrasteucture.Reposetores.Service
 
         public void Deleteimage(string relativeFolderPath)
         {
-            try
-            {
-                var rootPath = Path.Combine("wwwroot", relativeFolderPath);
-                var fullPath = Path.GetFullPath(rootPath);
+            var info = fileprovider.GetFileInfo(relativeFolderPath);
 
-                if (Directory.Exists(fullPath))
-                {
-                    Directory.Delete(fullPath, recursive: true); // يحذف المجلد وكل محتوياته
-                    Console.WriteLine("تم حذف المجلد بنجاح.");
-                }
-                else
-                {
-                    Console.WriteLine("المجلد غير موجود.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"خطأ أثناء حذف المجلد: {ex.Message}");
-            }
+            var root=info.PhysicalPath;
+
+            File.Delete(root);
+
         }
     }
 }
