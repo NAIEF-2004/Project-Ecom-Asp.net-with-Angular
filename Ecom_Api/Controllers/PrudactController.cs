@@ -89,5 +89,12 @@ namespace Ecom_Api.Controllers
                 return BadRequest(new ResponseAPI(400,ex.Message));
             }
         }
+        [HttpDelete("Delete-Prudact/{id}")]
+        public async Task<IActionResult> DeletePrudact(int id) 
+        {
+         var prudact =await work.PrudactRepostiry.GetByIdAsync(id,x=>x.photos,x=>x.category);
+            await work.PrudactRepostiry.DeleteAsync(prudact);
+
+        }
     }
 }

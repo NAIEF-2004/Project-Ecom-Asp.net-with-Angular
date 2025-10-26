@@ -12,6 +12,7 @@ namespace Ecom_Core.Interface
     {
         Task<bool> AddAsync(AddprudactDTO prudactDTO);
         Task<bool>UpdateAsync(UpdateprudactDTO prudactDTO);
+        Task DeleteAsync(Prudact prudact);
 
     }
 }

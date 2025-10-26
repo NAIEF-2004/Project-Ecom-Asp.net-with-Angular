@@ -48,6 +48,11 @@ namespace Ecom_Infrasteucture.Reposetores
 
         }
 
+        public Task DeleteAsync(Prudact prudact)
+        {
+            throw new NotImplementedException();
+        }
+
         public async  Task<bool> UpdateAsync(UpdateprudactDTO prudactDTO)
         {
             if (prudactDTO == null) return false;
