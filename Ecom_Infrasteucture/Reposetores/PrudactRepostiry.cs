@@ -48,10 +48,7 @@ namespace Ecom_Infrasteucture.Reposetores
 
         }
 
-        public Task DeleteAsync(Prudact prudact)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public async  Task<bool> UpdateAsync(UpdateprudactDTO prudactDTO)
         {
@@ -83,6 +80,16 @@ namespace Ecom_Infrasteucture.Reposetores
             await db.Photos.AddRangeAsync(photoNew);
             db.SaveChanges();
             return true;
+        }
+        public async Task DeleteAsync(Prudact prudact)
+        {
+            var photo = await db.Photos.Where(x => x.PrudactId == prudact.Id).ToListAsync();
+            foreach (var item in photo) 
+            {
+                imageManagmentService.Deleteimage(item.ImageName);
+            }
+            db.Prudacts.Remove(prudact);
+            db.SaveChanges();
         }
     }
 }

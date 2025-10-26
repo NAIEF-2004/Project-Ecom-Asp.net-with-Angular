@@ -92,8 +92,18 @@ namespace Ecom_Api.Controllers
         [HttpDelete("Delete-Prudact/{id}")]
         public async Task<IActionResult> DeletePrudact(int id) 
         {
-         var prudact =await work.PrudactRepostiry.GetByIdAsync(id,x=>x.photos,x=>x.category);
-            await work.PrudactRepostiry.DeleteAsync(prudact);
+            try
+            {
+                var prudact = await work.PrudactRepostiry.GetByIdAsync(id, x => x.photos, x => x.category);
+                await work.PrudactRepostiry.DeleteAsync(prudact);
+                return Ok(new ResponseAPI(200, "Prudact deleted successfully"));
+            }
+            catch (Exception ex)
+            {
+
+               return BadRequest(ex.Message);
+            }
+ 
 
         }
     }
