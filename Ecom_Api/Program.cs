@@ -1,4 +1,4 @@
-using Ecom_Core.Interface;
+﻿using Ecom_Core.Interface;
 using Ecom_Infrasteucture;
 using Ecom_Infrasteucture.Reposetores;
 namespace Ecom_Api
@@ -26,6 +26,9 @@ namespace Ecom_Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            //في حال الفرونت طلب اند بوينت غير موجودة 
+            //اخذه لكونترولر خاص بالخطء انا انشاته
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
             app.UseHttpsRedirection();
 
