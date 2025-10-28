@@ -1,4 +1,5 @@
-﻿using Ecom_Core.Interface;
+﻿using Ecom_Api.MiddleWare;
+using Ecom_Core.Interface;
 using Ecom_Infrasteucture;
 using Ecom_Infrasteucture.Reposetores;
 namespace Ecom_Api
@@ -26,6 +27,8 @@ namespace Ecom_Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            //البوابة الاساسية للمشروع هي المديل وير
+            app.UseMiddleware<ExceptionsMiddleWare>();
             //في حال الفرونت طلب اند بوينت غير موجودة 
             //اخذه لكونترولر خاص بالخطء انا انشاته
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
