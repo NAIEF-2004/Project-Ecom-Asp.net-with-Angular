@@ -8,7 +8,12 @@ namespace Ecom_Api
     {
         public static void Main(string[] args)
         {
+            
             var builder = WebApplication.CreateBuilder(args);
+
+            //لزمتني من اجل دالة الخاصة بحماية من ارسال الريكوستات بشكل متكرر
+            //rate limet
+            builder.Services.AddMemoryCache();
 
             // Add services to the container.
 
