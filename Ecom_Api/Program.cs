@@ -10,10 +10,17 @@ namespace Ecom_Api
         {
             
             var builder = WebApplication.CreateBuilder(args);
+            
 
             //لزمتني من اجل دالة الخاصة بحماية من ارسال الريكوستات بشكل متكرر
             //rate limet
             builder.Services.AddMemoryCache();
+            builder.Services.AddCors(op=>
+            op.AddPolicy("CorsPolicy",op => 
+            {
+           op.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200");
+            })
+            );
 
             // Add services to the container.
 
@@ -32,6 +39,8 @@ namespace Ecom_Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors("CorsPolicy");
+
             //البوابة الاساسية للمشروع هي المديل وير
             app.UseMiddleware<ExceptionsMiddleWare>();
             //في حال الفرونت طلب اند بوينت غير موجودة 
