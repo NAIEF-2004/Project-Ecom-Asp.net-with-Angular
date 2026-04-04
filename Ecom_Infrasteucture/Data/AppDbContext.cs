@@ -1,4 +1,5 @@
 ﻿using Ecom_Core.Entites.Prudact;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Ecom_Infrasteucture.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext:IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext>option):base(option)
         {
@@ -20,7 +21,7 @@ namespace Ecom_Infrasteucture.Data
         public virtual DbSet<Prudact> Prudacts { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
 
-        protected virtual void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

@@ -52,7 +52,12 @@ namespace Ecom_Infrasteucture.Reposetores.Service
         {
             var info = fileprovider.GetFileInfo(relativeFolderPath);
 
-            var root=info.PhysicalPath;
+            var root = info.PhysicalPath;
+
+            if (string.IsNullOrWhiteSpace(root) || File.Exists(root) is false)
+            {
+                return;
+            }
 
             File.Delete(root);
 

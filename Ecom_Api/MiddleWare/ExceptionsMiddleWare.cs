@@ -25,16 +25,17 @@ namespace Ecom_Api.MiddleWare
         {
             try
             {
-                if (IsRequstAllowd(context)==false) 
+                if (IsRequstAllowd(context) == false)
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.TooManyRequests;
                     context.Response.ContentType = "application/json";
 
-                    var response = 
-                        new ApiExceptions((int)HttpStatusCode.TooManyRequests,"Too Many Response, please try again later");
+                    var response =
+                        new ApiExceptions((int)HttpStatusCode.TooManyRequests, "Too Many Response, please try again later");
 
-                 await  context.Response.WriteAsJsonAsync(response);
+                    await context.Response.WriteAsJsonAsync(response);
 
+                    return;
                 }
                 await next(context);
             }
@@ -55,7 +56,7 @@ namespace Ecom_Api.MiddleWare
         //ratelimet
         private bool IsRequstAllowd(HttpContext context)
         {
-            var ip = context.Connection.RemoteIpAddress.ToString();
+            var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             var cachKey = $"Rate:{ip}";
             var dateNow = DateTime.Now;
 

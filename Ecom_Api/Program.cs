@@ -1,7 +1,11 @@
-﻿using Ecom_Api.MiddleWare;
+﻿using AutoMapper;
+using Ecom_Api.MiddleWare;
+using Ecom_Core.Entites.Prudact;
 using Ecom_Core.Interface;
 using Ecom_Infrasteucture;
+using Ecom_Infrasteucture.Data;
 using Ecom_Infrasteucture.Reposetores;
+using Microsoft.AspNetCore.Identity;
 namespace Ecom_Api
 {
     public class Program
@@ -25,11 +29,12 @@ namespace Ecom_Api
             // Add services to the container.
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.InfrastructureConfiguration(builder.Configuration);
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()));
+            builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+
             var app = builder.Build();
            
 

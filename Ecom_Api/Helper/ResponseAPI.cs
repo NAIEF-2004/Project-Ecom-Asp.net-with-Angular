@@ -2,10 +2,10 @@
 {
     public class ResponseAPI
     {
-        public ResponseAPI(int statusCod,string message=null)
+        public ResponseAPI(int statusCod, string? message = null)
         {
             StatusCod = statusCod;
-            Message = message??GetMessgeFromStatusCod(statusCod);
+            Message = message ?? GetMessgeFromStatusCod(statusCod);
         }
 
         private string GetMessgeFromStatusCod(int statusCod)

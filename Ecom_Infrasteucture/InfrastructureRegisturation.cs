@@ -1,8 +1,10 @@
-﻿using Ecom_Core.Interface;
+﻿using Ecom_Core.Entites.Prudact;
+using Ecom_Core.Interface;
 using Ecom_Core.Services;
 using Ecom_Infrasteucture.Data;
 using Ecom_Infrasteucture.Reposetores;
 using Ecom_Infrasteucture.Reposetores.Service;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,10 +33,16 @@ namespace Ecom_Infrasteucture
             //services.AddScoped<IPhotoRepostiry, PhotoRepostiry>();
             //هاد البديل عن كل القاءمة 
             //applay pattern unit of work
+
+            
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //applay dbcontext
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("Ecom")));
+
+           
+
             //save
             services.AddSingleton<IImageManagmentService,ImageManagemintService>();
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"wwwroot")));

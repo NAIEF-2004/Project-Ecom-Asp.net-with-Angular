@@ -26,8 +26,13 @@ namespace Ecom_Infrasteucture.Reposetores
 
         public async Task DeleteAsync(int id)
         {
-        var d=await db.Set<T>().FindAsync(id);
-            db.Set<T>().Remove(d);
+            var entity = await db.Set<T>().FindAsync(id);
+            if (entity is null)
+            {
+                throw new KeyNotFoundException($"{typeof(T).Name} with id {id} was not found.");
+            }
+
+            db.Set<T>().Remove(entity);
             await db.SaveChangesAsync();
         }
 
@@ -45,8 +50,13 @@ namespace Ecom_Infrasteucture.Reposetores
 
         public async Task<T> GetByIdAsync(int id)
         {
-            var a = await db.Set<T>().FindAsync(id);
-            return a;
+            var entity = await db.Set<T>().FindAsync(id);
+            if (entity is null)
+            {
+                throw new KeyNotFoundException($"{typeof(T).Name} with id {id} was not found.");
+            }
+
+            return entity;
         }
 
         public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includs)
@@ -59,6 +69,11 @@ namespace Ecom_Infrasteucture.Reposetores
             }
 
             var entity = await query.FirstOrDefaultAsync(r => EF.Property<int>(r, "Id") == id);
+            if (entity is null)
+            {
+                throw new KeyNotFoundException($"{typeof(T).Name} with id {id} was not found.");
+            }
+
             return entity;
 
         }

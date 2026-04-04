@@ -4,10 +4,11 @@ namespace Ecom_Api.MiddleWare
 {
     public class ApiExceptions : ResponseAPI
     {
-        public ApiExceptions(int statusCod, string message = null, string Details=null) : base(statusCod, message)
+        public ApiExceptions(int statusCod, string? message = null, string? details = null) : base(statusCod, message)
         {
-           this.Details = Details;
+            Details = details;
         }
-        public string Details { get; set; }
+
+        public string? Details { get; set; }
     }
 }

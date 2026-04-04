@@ -12,7 +12,10 @@ namespace Ecom_Api.Controllers
         [HttpGet]
         public ActionResult Error(int StatusCod) 
         {
-            return new ObjectResult(new ResponseAPI(StatusCod));
+            return new ObjectResult(new ResponseAPI(StatusCod))
+            {
+                StatusCode = StatusCod
+            };
         }
     }
 }
