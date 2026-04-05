@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ecom_Core.DTO
 {
-    public record AccountUser
+    public record dtoAccountUser
     {
         [Required]
         public string Name { get; set; }
