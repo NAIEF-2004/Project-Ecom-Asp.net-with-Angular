@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Ecom_Core.DTO
 {
-    public record dtoAccountUser
+    public record dtoRegestoreUser
     {
         [Required]
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required,MinLength(6)]
+        [Required]
 
-        public int Password { get; set; }
+        public string Password { get; set; }
         public string? Phone { get; set; }
 
     }

@@ -6,10 +6,10 @@ using System.Text;
 
 namespace Ecom_Core.DTO
 {
-    public  record dtologin
+    public  record dtoLoginUser
     {
         [Required]
-        public int password { get; set; }
+        public string password { get; set; }
         [Required]
         public string Name { get; set; }
     }

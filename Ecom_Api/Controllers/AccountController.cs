@@ -18,63 +18,52 @@ namespace Ecom_Api.Controllers
          _userManager = userManager;
         }
 
-
-        [HttpPost]
-        public async Task<IActionResult> Register(dtoAccountUser user)
+        [HttpPost("Regestore")]
+        public async Task<IActionResult> Regestore(dtoRegestoreUser user)
+        {
+            if (ModelState.IsValid) 
+            {
+                AppUser appUser = new() 
+                {
+                UserName=user.Name,
+                Email=user.Email,
+                };
+                IdentityResult result=await _userManager.CreateAsync(appUser,user.Password);
+                if (result.Succeeded)
+                {
+                    return Ok("sccses");
+                }
+                return BadRequest();
+            }
+            return BadRequest(ModelState);  
+        }
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(dtoLoginUser loginUser) 
         {
             if (ModelState.IsValid)
             {
-                AppUser appuser = new()
-                {
-                  UserName=user.Name,
-                  Email=user.Email,
-
-                };
-
-                IdentityResult result = await _userManager.CreateAsync(appuser,user.Password);
-                if (result.Succeeded)
-                {
-                    return Ok("succass");
-                }
-                else
-                {
-                    //حط اخطاءك
-                }
-            }
-          
-
-
-            return BadRequest();
-        }
-        [HttpPost]
-        public async Task<IActionResult> login(dtologin login) {
-
-            if (ModelState.IsValid)
-            {
-
-                AppUser user= await _userManager.FindByNameAsync(login.Name);
+                AppUser? user = await _userManager.FindByNameAsync(loginUser.Name);
                 if (user != null)
                 {
-                    if (await _userManager.CheckPasswordAsync(user, login.password)) {
+                    if (await _userManager.CheckPasswordAsync(user,loginUser.password))
+                    {
                         return Ok("token");
                     }
-                    else { return Unauthorized(); }
-
+                    else 
+                    {
+                        return Unauthorized();
+                    }
                 }
-                else {
-                    ModelState.AddModelError("", "model not found ");
+                else 
+                {
+                    ModelState.AddModelError("","the user no find ");
                 }
             }
-            else {
-               return BadRequest();
-            
-            }
-
-
-
+            return BadRequest();
+        }
           
 
        
         }
     }
-}
+

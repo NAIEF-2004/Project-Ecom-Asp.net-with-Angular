@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using Ecom_Core.DTO;
+using Ecom_Core.Entites.Prudact;
 using Ecom_Core.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 using System.Threading.Tasks;
