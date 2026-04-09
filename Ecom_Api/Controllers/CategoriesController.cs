@@ -24,7 +24,7 @@ namespace Ecom_Api.Controllers
             this.map = map;
         }
 
-
+        [Authorize]//تجريب للتأكد من أن ال authorization يعمل
         [HttpGet("get-all")]
         public async Task<ActionResult> GetAllCategories() 
         { 
@@ -45,7 +45,6 @@ namespace Ecom_Api.Controllers
         }
         
         [HttpGet("get-by-id/{id}")]
-        [Authorize]
         public async Task<ActionResult> Getbyid(int id)
         {
             try
