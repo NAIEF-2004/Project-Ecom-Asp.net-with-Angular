@@ -18,7 +18,7 @@ namespace Ecom_Infrasteucture.Data
         }
 
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Prudact> Prudacts { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

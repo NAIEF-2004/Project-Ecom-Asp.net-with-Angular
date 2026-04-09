@@ -4,6 +4,7 @@ using Ecom_Core.DTO;
 using Ecom_Core.Entites.Prudact;
 using Ecom_Core.Interface;
 using Ecom_Infrasteucture.Reposetores;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace Ecom_Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class CategoriesController : ControllerBase
     {
         private readonly IUnitOfWork work;
@@ -29,7 +31,7 @@ namespace Ecom_Api.Controllers
           
             try
             {
-                var categories = await work.CategoryRepostiry.GetAllAsync();
+                var categories = await work.CategoryRepository.GetAllAsync();
                 if (categories is null)
                     return BadRequest();
                 return Ok(categories);
@@ -41,12 +43,14 @@ namespace Ecom_Api.Controllers
             }  
 
         }
+        
         [HttpGet("get-by-id/{id}")]
+        [Authorize]
         public async Task<ActionResult> Getbyid(int id)
         {
             try
             {
-                var category = await work.CategoryRepostiry.GetByIdAsync(id);
+                var category = await work.CategoryRepository.GetByIdAsync(id);
                 if (category is null) return BadRequest(new ResponseAPI(400));
                 return Ok(category);
             }
@@ -62,7 +66,7 @@ namespace Ecom_Api.Controllers
             try
             {
                 var x = map.Map<Category>(categorydto);
-                await work.CategoryRepostiry.AddAsync(x);
+                await work.CategoryRepository.AddAsync(x);
                 return Ok(new ResponseAPI(200,"item has been add"));
             }
             catch (Exception ex)
@@ -76,7 +80,7 @@ namespace Ecom_Api.Controllers
             try
             {
                 var category = map.Map<Category>(updatecategore);
-                await work.CategoryRepostiry.UpdateAsync(category);
+                await work.CategoryRepository.UpdateAsync(category);
                 return Ok(new ResponseAPI(200,"item has been update "));
             }
             catch (Exception ex)
@@ -90,7 +94,7 @@ namespace Ecom_Api.Controllers
         {
             try
             {
-                await work.CategoryRepostiry.DeleteAsync(id);
+                await work.CategoryRepository.DeleteAsync(id);
                 return Ok(new ResponseAPI(200,"item has been deleted"));
             }
             catch (Exception ex)

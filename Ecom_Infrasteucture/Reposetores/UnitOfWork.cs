@@ -16,19 +16,19 @@ namespace Ecom_Infrasteucture.Reposetores
         private readonly IMapper mp;
         private readonly IImageManagmentService imageManagmentService;
 
-        public ICategoryRepostiry CategoryRepostiry { get;  }
+        public ICategoryRepository CategoryRepository { get;  }
 
-        public IPrudactRepostiry PrudactRepostiry { get; }
+        public IProductRepository ProductRepository { get; }
 
-        public IPhotoRepostiry PhotoRepostiry { get; }
+        public IPhotoRepository PhotoRepository { get; }
         public UnitOfWork(AppDbContext db,IMapper mp,IImageManagmentService imageManagmentService)
         {
             this.db = db;
             this.mp = mp;
             this.imageManagmentService = imageManagmentService;
-            CategoryRepostiry = new CategoryReposetiry(db);
-            PrudactRepostiry =new PrudactRepostiry(db,mp, imageManagmentService);
-            PhotoRepostiry=new PhotoRepostiry(db);
+            CategoryRepository = new CategoryRepository(db);
+            ProductRepository =new ProductRepository(db,mp, imageManagmentService);
+            PhotoRepository=new PhotoRepository(db);
         }
     }
 }

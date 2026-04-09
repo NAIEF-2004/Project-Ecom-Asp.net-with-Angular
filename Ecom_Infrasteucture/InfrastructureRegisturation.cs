@@ -27,10 +27,10 @@ namespace Ecom_Infrasteucture
             // services.AddSingleton<IGenericRepository<>, GenericRepository<>>();
 
             //استبدلتن بطريقة اسهل unikwork
-            //services.AddScoped(typeof(IGenricRepository<>), typeof(GenricRepository<>));
-            //services.AddScoped<ICategoryRepostiry, CategoryReposetiry>();
-            //services.AddScoped<IPrudactRepostiry, PrudactRepostiry>();
-            //services.AddScoped<IPhotoRepostiry, PhotoRepostiry>();
+            //services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            //services.AddScoped<ICategoryRepository, CategoryRepository>();
+            //services.AddScoped<IProductRepository, ProductRepository>();
+            //services.AddScoped<IPhotoRepository, PhotoRepository>();
             //هاد البديل عن كل القاءمة 
             //applay pattern unit of work
 

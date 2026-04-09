@@ -25,7 +25,7 @@ namespace Ecom_Api.Controllers
         [HttpGet("Not-Found")]
         public async Task<IActionResult> GetNotFound()
         {
-            var category = await work.CategoryRepostiry.GetByIdAsync(999999999);
+            var category = await work.CategoryRepository.GetByIdAsync(999999999);
             if (category == null)
             {
                 return NotFound();
@@ -35,7 +35,7 @@ namespace Ecom_Api.Controllers
         [HttpGet("Server-Error")]
         public async Task<IActionResult> GetServerError()
         {
-            var category = await work.CategoryRepostiry.GetByIdAsync(99999999);
+            var category = await work.CategoryRepository.GetByIdAsync(99999999);
             category.Name = "";//cause server error
             return Ok(category);
 

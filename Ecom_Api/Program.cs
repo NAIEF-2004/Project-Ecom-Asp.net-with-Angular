@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecom_Api.ExtentionsToJWT;
 using Ecom_Api.MiddleWare;
 using Ecom_Core.Entites.Prudact;
 using Ecom_Core.Interface;
@@ -34,6 +35,8 @@ namespace Ecom_Api
             builder.Services.InfrastructureConfiguration(builder.Configuration);
             builder.Services.AddAutoMapper(cfg => cfg.AddMaps(AppDomain.CurrentDomain.GetAssemblies()));
             builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            //
+            builder.Services.AddCustomJwtAuth(builder.Configuration);
 
             var app = builder.Build();
            
@@ -54,6 +57,8 @@ namespace Ecom_Api
 
             app.UseHttpsRedirection();
 
+            
+            app.UseAuthentication();//للتاكد من التوكن
             app.UseAuthorization();
 
 

@@ -10,8 +10,8 @@ namespace Ecom_Core.Entites.Prudact
     public class Photo:BaseEntity<int>
     {
         public string  ImageName{ get; set; }
-        public int PrudactId { get; set; }
-        //[ForeignKey(nameof(PrudactId))]
-        //public virtual Prudact prudact { get; set; }
+        public int ProductId { get; set; }
+        //[ForeignKey(nameof(ProductId))]
+        //public virtual Product product { get; set; }
     }
 }
