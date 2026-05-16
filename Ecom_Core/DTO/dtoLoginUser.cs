@@ -6,11 +6,14 @@ using System.Text;
 
 namespace Ecom_Core.DTO
 {
-    public  record dtoLoginUser
+    public class DtoLoginUser
     {
-        [Required]
-        public string password { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+        
+        [Required(ErrorMessage = "Username is required")]
+        [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
     }
 }

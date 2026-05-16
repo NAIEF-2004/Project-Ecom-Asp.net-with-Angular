@@ -22,7 +22,11 @@ namespace Ecom_Api.Controllers
             this.work = work;
             this.mp = mp;
         }
-        [HttpGet("Not-Found")]
+
+        /// <summary>
+        /// Test endpoint to trigger a 404 error
+        /// </summary>
+        [HttpGet("not-found")]
         public async Task<IActionResult> GetNotFound()
         {
             var category = await work.CategoryRepository.GetByIdAsync(999999999);
@@ -32,22 +36,32 @@ namespace Ecom_Api.Controllers
             }
             return Ok(category);
         }
-        [HttpGet("Server-Error")]
+
+        /// <summary>
+        /// Test endpoint to trigger a server error
+        /// </summary>
+        [HttpGet("server-error")]
         public async Task<IActionResult> GetServerError()
         {
             var category = await work.CategoryRepository.GetByIdAsync(99999999);
             category.Name = "";//cause server error
             return Ok(category);
-
-        
         }
-        [HttpGet("Bad-Requst/{id}")]
-        public async Task<IActionResult> GetBadRequst(int id)
+
+        /// <summary>
+        /// Test endpoint with ID parameter
+        /// </summary>
+        [HttpGet("bad-request/{id}")]
+        public async Task<IActionResult> GetBadRequest(int id)
         {
             return Ok();
         }
-        [HttpGet("Bad-Requst")]
-        public async Task<IActionResult> GetBadRequst()
+
+        /// <summary>
+        /// Test endpoint for bad request
+        /// </summary>
+        [HttpGet("bad-request")]
+        public async Task<IActionResult> GetBadRequestNoParam()
         {
             return BadRequest();
         }

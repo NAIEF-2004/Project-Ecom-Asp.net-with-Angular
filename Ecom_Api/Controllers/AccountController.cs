@@ -25,8 +25,13 @@ namespace Ecom_Api.Controllers
             this.configuration = configuration;
         }
 
-        [HttpPost("Regestore")]
-        public async Task<IActionResult> Regestore(dtoRegestoreUser user)
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Register(DtoRegisterUser user)
         {
             if (ModelState.IsValid)
             {
@@ -38,30 +43,37 @@ namespace Ecom_Api.Controllers
                 IdentityResult result = await _userManager.CreateAsync(appUser, user.Password);
                 if (result.Succeeded)
                 {
-                    return Ok("sccses");
+                    return Ok(new { message = "Registration successful" });
                 }
                 return BadRequest(result.Errors);
             }
             return BadRequest(ModelState);
         }
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login(dtoLoginUser loginUser)
+
+        /// <summary>
+        /// Login user
+        /// </summary>
+        [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Login(DtoLoginUser loginUser)
         {
             if (ModelState.IsValid)
             {
                 AppUser? user = await _userManager.FindByNameAsync(loginUser.Name);
                 if (user != null)
                 {
-                    if (await _userManager.CheckPasswordAsync(user, loginUser.password))
+                    if (await _userManager.CheckPasswordAsync(user, loginUser.Password))
                     {
                         var claims = new List<Claim>();
                         claims.Add(new Claim(ClaimTypes.Name, user.UserName));
                         claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
                         claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-                        var rols = await _userManager.GetRolesAsync(user);
-                        foreach (var rol in rols)
+                        var roles = await _userManager.GetRolesAsync(user);
+                        foreach (var role in roles)
                         {
-                            claims.Add(new Claim(ClaimTypes.Role, rol));
+                            claims.Add(new Claim(ClaimTypes.Role, role));
                         }
                         //signingCredentials
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:SecretKey"]));
@@ -73,26 +85,25 @@ namespace Ecom_Api.Controllers
                         audience: configuration["JWT:Audience"],
                         expires: DateTime.Now.AddHours(3),
                         signingCredentials: sc
-
                         );
                         var _token = new
                         {
                             token = new JwtSecurityTokenHandler().WriteToken(token),
-                            exception = token.ValidTo,
+                            expiration = token.ValidTo,
                         };
                         return Ok(_token);
                     }
                     else
                     {
-                        return Unauthorized();
+                        return Unauthorized(new { message = "Invalid password" });
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "the user no find ");
+                    return Unauthorized(new { message = "User not found" });
                 }
             }
-            return BadRequest();
+            return BadRequest(ModelState);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Ecom_Core.Services
    public  interface IImageManagmentService
     {
         //استخدمت لست ممكن يعطي اكثر من صورة لاضيفها للمنتج
-        Task<List<string>> Addimage(IFormFileCollection file,string src );
+        Task<List<string>> Addimage(IEnumerable<IFormFile>? files, string src);
       
         void Deleteimage(string src);
     }

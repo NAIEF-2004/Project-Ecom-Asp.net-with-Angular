@@ -4,17 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecom_Api.Controllers
 {
-    [Route("Error/{StatusCod}")]
+    [Route("Error/{StatusCode}")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ErrorController : ControllerBase
     {
-        //في حال طلب اند بوينت غير موجودة ياخذني لهنا ويرجعلي رسالة الخطء المناسبة
+        /// <summary>
+        /// Handle API errors
+        /// </summary>
         [HttpGet]
-        public ActionResult Error(int StatusCod) 
+        public ActionResult Error(int statusCode) 
         {
-            return new ObjectResult(new ResponseAPI(StatusCod))
+            return new ObjectResult(new ResponseAPI(statusCode))
             {
-                StatusCode = StatusCod
+                StatusCode = statusCode
             };
         }
     }

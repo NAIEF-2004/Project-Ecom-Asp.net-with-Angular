@@ -20,7 +20,7 @@ namespace Ecom_Infrasteucture.Reposetores.Service
             this.fileprovider = fileprovider;
         }
 
-        public async Task<List<string>> Addimage(IFormFileCollection files, string src)
+        public async Task<List<string>> Addimage(IEnumerable<IFormFile>? files, string src)
         {
             var SaveImageSrc = new List<string>();
             var ImageDirectory = Path.Combine("wwwroot", "Images", src);
@@ -28,6 +28,11 @@ namespace Ecom_Infrasteucture.Reposetores.Service
             if (Directory.Exists(ImageDirectory) is not true)
             {
                 Directory.CreateDirectory(ImageDirectory);
+            }
+
+            if (files is null)
+            {
+                return SaveImageSrc;
             }
 
             foreach (var item in files)
