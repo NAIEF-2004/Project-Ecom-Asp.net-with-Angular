@@ -1,0 +1,17 @@
+Using launch settings from Ecom_Api\Properties\launchSettings.json...
+warn: Microsoft.AspNetCore.DataProtection.Repositories.EphemeralXmlRepository[50]
+      Using an in-memory repository. Keys will not be persisted to storage.
+warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[59]
+      Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+      No XML encryptor configured. Key {1656f9e5-3801-49ea-a773-eb6d39e5d428} may be persisted to storage in unencrypted form.
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5214
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\Users\Naief\OneDrive\Dokumente\GitHub\Project-Ecom-Asp.net-with-Angular\Ecom_Api
+warn: Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware[3]
+      Failed to determine the https port for redirect.
